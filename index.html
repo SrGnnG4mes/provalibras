@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Libras N1 · Revisão</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: single study column, sticky tab bar (Conteúdo / Decorar / Quiz), mobile-first */
+:root{
+  --bg:#f2f5f1; --surface:#ffffff; --ink:#17221b; --muted:#56655b; --line:#d6ded7;
+  --accent:#1d7448; --accent-soft:#e0efe5; --amber:#a5520c; --amber-soft:#fbebdc;
+  --bad:#b3261e; --bad-soft:#f9e2df;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1511; --surface:#17201a; --ink:#e4ebe6; --muted:#9aa89f; --line:#29342d;
+  --accent:#62c38f; --accent-soft:#1b3125; --amber:#f0a660; --amber-soft:#382515;
+  --bad:#f28b81; --bad-soft:#3a1d1a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1511; --surface:#17201a; --ink:#e4ebe6; --muted:#9aa89f; --line:#29342d;
+  --accent:#62c38f; --accent-soft:#1b3125; --amber:#f0a660; --amber-soft:#382515;
+  --bad:#f28b81; --bad-soft:#3a1d1a; color-scheme:dark}
+
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16.5px;line-height:1.6}
+.wrap{max-width:760px;margin:0 auto;padding-inline:18px;padding-block:28px 64px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.15;margin:0}
+h1{font-size:clamp(1.9rem,6vw,2.6rem);font-weight:800;letter-spacing:-.01em}
+h2{font-size:1.45rem;font-weight:800;margin-bottom:.75rem}
+h3{font-size:1.08rem;font-weight:600}
+p{margin:0}
+.eyebrow{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.lede{color:var(--muted);margin-top:.6rem;max-width:58ch}
+header{display:grid;gap:.4rem;margin-bottom:1.4rem}
+
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:6px;padding-block:10px;border-bottom:1px solid var(--line);margin-bottom:1.6rem}
+.tab{flex:1;font:inherit;font-weight:700;font-size:.95rem;padding:.6rem .5rem;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.tab:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+
+section{margin-bottom:2.6rem}
+.note{font-size:.92rem;color:var(--muted)}
+mark{background:var(--accent-soft);color:var(--ink);padding:0 .2em;border-radius:3px}
+
+/* timeline */
+.timeline{list-style:none;margin:0;padding:0;display:grid;gap:0;border-left:2px solid var(--line);margin-left:6px}
+.timeline li{position:relative;padding:0 0 1.15rem 1.2rem}
+.timeline li::before{content:"";position:absolute;left:-7px;top:.45rem;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
+.yr{font-family:var(--f-mono);font-weight:500;color:var(--accent);font-size:.9rem;font-variant-numeric:tabular-nums}
+.timeline h3{margin:.1rem 0 .25rem}
+
+.pill-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:.5rem}
+.pill{font-size:.85rem;padding:.2rem .65rem;border-radius:999px;background:var(--accent-soft);color:var(--ink)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem}
+.cols > div{min-width:0}
+.callout{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:1rem 1.1rem;display:grid;gap:.4rem}
+
+.table-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:420px;font-size:.95rem}
+th,td{text-align:left;padding:.6rem .7rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--f-mono);font-weight:500;font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+
+.myths{display:grid;gap:.7rem}
+.myth{display:grid;grid-template-columns:1fr;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
+.myth .m{padding:.7rem 1rem;background:var(--amber-soft)}
+.myth .f{padding:.7rem 1rem}
+.tag{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;font-weight:500;display:block;margin-bottom:.15rem}
+.m .tag{color:var(--amber)} .f .tag{color:var(--accent)}
+.m p{font-weight:700}
+
+.arts{display:grid;gap:.55rem;margin:0;padding:0;list-style:none}
+.arts li{display:grid;grid-template-columns:4.2rem 1fr;gap:.6rem;align-items:baseline}
+.arts li > span:last-child{min-width:0}
+.art{font-family:var(--f-mono);font-size:.82rem;color:var(--accent);font-variant-numeric:tabular-nums}
+.law-head{display:flex;flex-wrap:wrap;gap:.3rem .8rem;align-items:baseline;margin-bottom:.8rem}
+.law-head .note{font-family:var(--f-mono);font-size:.8rem}
+
+details{border:1px solid var(--line);border-radius:12px;background:var(--surface);margin-bottom:.6rem}
+summary{cursor:pointer;padding:.8rem 1rem;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:1rem}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--f-mono);color:var(--accent)}
+details[open] summary::after{content:"–"}
+details .body{padding:0 1rem 1rem}
+
+/* decorar */
+.facts{display:grid;gap:0;margin:0}
+.facts div{display:grid;grid-template-columns:7.5rem 1fr;gap:.8rem;padding:.65rem 0;border-bottom:1px solid var(--line)}
+.facts dt{font-family:var(--f-display);font-weight:800;font-size:1.2rem;color:var(--accent);font-variant-numeric:tabular-nums}
+.facts dd{margin:0;min-width:0}
+
+/* quiz */
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.2rem;display:grid;gap:1rem}
+.qmeta{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:.8rem;color:var(--muted)}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);transition:width .25s}
+.qtext{font-family:var(--f-display);font-weight:600;font-size:1.18rem;line-height:1.3}
+.opts{display:grid;gap:.5rem}
+.opt{font:inherit;text-align:left;padding:.75rem .9rem;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;line-height:1.4}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--accent);background:var(--accent-soft);font-weight:700}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.exp{border-left:3px solid var(--accent);padding:.2rem 0 .2rem .8rem;font-size:.95rem}
+.exp.miss{border-color:var(--bad)}
+.btn{font:inherit;font-weight:700;padding:.7rem 1.1rem;border-radius:999px;border:0;background:var(--accent);color:var(--bg);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.actions{display:flex;flex-wrap:wrap;gap:.5rem}
+.score{font-family:var(--f-display);font-weight:800;font-size:3rem;color:var(--accent);font-variant-numeric:tabular-nums;line-height:1}
+.review{display:grid;gap:.7rem;margin:0;padding:0;list-style:none}
+.review li{border-left:3px solid var(--bad);padding-left:.8rem;font-size:.95rem}
+.review b{display:block}
+@media (prefers-reduced-motion: reduce){.bar i{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">Sistemas para Internet · Libras · Prova N1 · 08/10/2026</span>
+  <h1>Libras: revisão para a N1</h1>
+  <p class="lede">Todo o conteúdo do material da prova em um lugar: história, mitos, a Lei 10.436 e o Decreto 5.626. Leia o conteúdo, decore os números e depois treine no quiz.</p>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Seções">
+  <button class="tab" role="tab" id="t-conteudo" aria-controls="conteudo" aria-selected="true">Conteúdo</button>
+  <button class="tab" role="tab" id="t-decorar" aria-controls="decorar" aria-selected="false">Decorar</button>
+  <button class="tab" role="tab" id="t-quiz" aria-controls="quiz" aria-selected="false">Quiz</button>
+</nav>
+
+<!-- ============ CONTEÚDO ============ -->
+<div id="conteudo" role="tabpanel" aria-labelledby="t-conteudo">
+
+<section>
+  <h2>Linha do tempo da educação de surdos no Brasil</h2>
+  <ol class="timeline">
+    <li><span class="yr">1857</span><h3>Início da educação dos surdos</h3><p>Fundado no Rio de Janeiro o <mark>Imperial Instituto de Surdos-Mudos</mark>, atual <b>INES</b> (Instituto Nacional de Educação de Surdos). Trouxe professores surdos e ouvintes que usavam sinais e comunicação visual.</p></li>
+    <li><span class="yr">1880</span><h3>Chegada do método oralista</h3><p>Por influência do <mark>Congresso de Milão</mark>, o oralismo foi imposto no Brasil e os sinais foram proibidos nas escolas. Período de resistência e silêncio para a comunidade surda.</p></li>
+    <li><span class="yr">Década de 1970</span><h3>O movimento surdo</h3><p>Surgem movimentos em defesa da língua de sinais e da identidade cultural surda. Lideranças surdas se organizam pelo país.</p></li>
+    <li><span class="yr">1988</span><h3>Reconhecimento da cultura surda</h3><p>A <mark>Constituição Federal</mark> reconhece o direito à diferença e à educação para todos, abrindo caminho para o reconhecimento da Libras.</p></li>
+    <li><span class="yr">2002</span><h3>Lei de Libras</h3><p>A <mark>Lei nº 10.436</mark> reconhece oficialmente a Libras como meio legal de comunicação e expressão da comunidade surda brasileira.</p></li>
+    <li><span class="yr">2005</span><h3>O Decreto</h3><p>O <mark>Decreto nº 5.626</mark> regulamenta a lei e garante educação bilíngue, formação de intérpretes e acessibilidade em diferentes áreas.</p></li>
+    <li><span class="yr">Hoje</span><h3>Avanços e novos desafios</h3><p>Libras cada vez mais presente na educação, na mídia, na cultura e nas políticas públicas. A luta continua por respeito, acessibilidade e inclusão plena.</p></li>
+  </ol>
+  <p class="note">Frase do material: a Libras não é só um sistema de comunicação; é identidade, cultura, resistência e história.</p>
+</section>
+
+<section>
+  <h2>Libras é língua, não mímica</h2>
+  <div class="callout">
+    <span class="tag" style="color:var(--amber)">Conceito equivocado</span>
+    <p>Muita gente acha que línguas de sinais são só gestos que "traduzem" as línguas orais.</p>
+    <span class="tag" style="color:var(--accent);margin-top:.4rem">A realidade</span>
+    <p>Libras <b>não é mímica</b> nem representação gestual do Português. Tem <b>estrutura gramatical própria, sintaxe independente e regras linguísticas complexas</b>. É uma língua completa e autônoma.</p>
+  </div>
+
+  <div class="cols">
+    <div>
+      <h3>Línguas completas: características</h3>
+      <div class="pill-row"><span class="pill">Complexidade equivalente</span><span class="pill">Expressividade plena</span><span class="pill">Status linguístico completo</span><span class="pill">Expressa qualquer conceito</span></div>
+      <p class="note" style="margin-top:.5rem">São comparáveis em complexidade e expressividade a qualquer língua oral.</p>
+    </div>
+    <div>
+      <h3>Libras evolui com a comunidade surda</h3>
+      <div class="pill-row"><span class="pill">Dinâmica linguística natural</span><span class="pill">Criação de novos sinais</span><span class="pill">Aceitação comunitária</span><span class="pill">Resposta a mudanças sociais e tecnológicas</span></div>
+      <p class="note" style="margin-top:.5rem">A comunidade surda cria e adota sinais novos conforme surgem necessidades culturais e tecnológicas.</p>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div>
+      <h3>Usuários podem discutir</h3>
+      <p>Filosofia, trabalho, moda, política, esportes, literatura.</p>
+    </div>
+    <div>
+      <h3>Libras pode ser usada para</h3>
+      <p>Poesias, estórias, contar histórias, peças de teatro, criar humor.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Língua Portuguesa × Libras</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Aspecto</th><th>Língua Portuguesa</th><th>Libras</th></tr></thead>
+      <tbody>
+        <tr><td><b>Modalidade</b></td><td>Oral-auditiva</td><td><b>Gestual-visual</b></td></tr>
+        <tr><td><b>Canal de comunicação</b></td><td>Sons articulados</td><td>Movimentos gestuais e expressões faciais</td></tr>
+        <tr><td><b>Órgão receptor</b></td><td>Audição</td><td>Visão</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note" style="margin-top:.5rem">Atenção: a Lei 10.436 usa outra expressão, "natureza <b>visual-motora</b>". As duas aparecem no material.</p>
+</section>
+
+<section>
+  <h2>Mitos e fatos</h2>
+  <div class="myths">
+    <div class="myth"><div class="m"><span class="tag">Mito</span><p>Línguas de sinais são universais.</p></div><div class="f"><span class="tag">Fato</span><p>Cada país tem a sua, como acontece com as línguas faladas. Há alguma semelhança na gramática, mas o vocabulário muda bastante.</p></div></div>
+    <div class="myth"><div class="m"><span class="tag">Mito</span><p>Línguas de sinais não têm gramática (gesto é mímica).</p></div><div class="f"><span class="tag">Fato</span><p>São sistemas linguísticos organizados, passados por uma comunidade de sinalizantes, com muitas regras gramaticais e estruturas próprias.</p></div></div>
+    <div class="myth"><div class="m"><span class="tag">Mito</span><p>Línguas de sinais têm vocabulário pequeno.</p></div><div class="f"><span class="tag">Fato</span><p>Têm milhares de sinais e vários modos de criar sinais novos. Surdos podem falar sobre qualquer coisa; a língua está sempre crescendo.</p></div></div>
+    <div class="myth"><div class="m"><span class="tag">Mito</span><p>Línguas de sinais são desenhos no ar.</p></div><div class="f"><span class="tag">Fato</span><p>Sinais são <b>símbolos para significados</b>, como as palavras. Não são um quadro de algo. É preciso conhecer a língua e o contexto para entender. Tem <b>status de língua</b>.</p></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="law-head"><h2 style="margin:0">Lei nº 10.436/2002</h2><span class="note">24 abr 2002 · Fernando Henrique Cardoso</span></div>
+  <ul class="arts">
+    <li><span class="art">Art. 1º</span><span>Reconhece a Libras como <mark>meio legal de comunicação e expressão</mark>. <b>Parágrafo único:</b> sistema linguístico de natureza <b>visual-motora</b>, com <b>estrutura gramatical própria</b>, para transmitir ideias e fatos, oriundo de comunidades surdas do Brasil.</span></li>
+    <li><span class="art">Art. 2º</span><span>Poder público e concessionárias de serviços públicos devem apoiar o uso e a difusão da Libras.</span></li>
+    <li><span class="art">Art. 3º</span><span>Instituições públicas e concessionárias de <b>saúde</b> devem garantir atendimento adequado a pessoas com deficiência auditiva.</span></li>
+    <li><span class="art">Art. 4º</span><span>Ensino de Libras nos cursos de formação de <b>Educação Especial, Fonoaudiologia e Magistério</b> (nível médio e superior). <b>Parágrafo único:</b> <mark>Libras não pode substituir a modalidade escrita do Português.</mark></span></li>
+    <li><span class="art">Art. 5º</span><span>Entra em vigor na data da publicação.</span></li>
+  </ul>
+</section>
+
+<section>
+  <div class="law-head"><h2 style="margin:0">Decreto nº 5.626/2005</h2><span class="note">22 dez 2005 · Lula</span></div>
+  <p style="margin-bottom:1rem">Regulamenta a <b>Lei 10.436/2002</b> e o <b>art. 18 da Lei 10.098/2000</b>. Toque em cada capítulo para abrir.</p>
+
+  <details open><summary>Cap. I · Definições (art. 1º–2º)</summary><div class="body"><ul class="arts">
+    <li><span class="art">Art. 2º</span><span><b>Pessoa surda:</b> por ter perda auditiva, compreende e interage com o mundo por <b>experiências visuais</b>, manifestando sua cultura principalmente pela Libras.</span></li>
+    <li><span class="art">§ único</span><span><b>Deficiência auditiva:</b> perda <b>bilateral, parcial ou total, de 41 dB ou mais</b>, aferida por audiograma nas frequências de <b>500, 1.000, 2.000 e 3.000 Hz</b>.</span></li>
+  </ul></div></details>
+
+  <details><summary>Cap. II · Libras como disciplina (art. 3º)</summary><div class="body"><ul class="arts">
+    <li><span class="art">Art. 3º</span><span><b>Obrigatória</b> nos cursos de formação de professores (magistério, nível médio e superior) e de <b>Fonoaudiologia</b>, em instituições públicas e privadas.</span></li>
+    <li><span class="art">§ 1º</span><span>Contam como formação de professores: todas as licenciaturas, curso normal (médio e superior), Pedagogia e Educação Especial.</span></li>
+    <li><span class="art">§ 2º</span><span><mark>Optativa</mark> nos demais cursos superiores e na educação profissional (é o caso de Sistemas para Internet).</span></li>
+  </ul></div></details>
+
+  <details><summary>Cap. III · Professor e instrutor de Libras (art. 4º–13)</summary><div class="body"><ul class="arts">
+    <li><span class="art">Art. 4º</span><span>Docente para anos finais do fundamental, médio e superior: graduação em <b>licenciatura plena em Letras: Libras</b> ou <b>Letras: Libras/Língua Portuguesa como segunda língua</b>. Surdos têm prioridade.</span></li>
+    <li><span class="art">Art. 5º</span><span>Docente para educação infantil e anos iniciais: Pedagogia ou normal superior bilíngue (mínimo: nível médio normal bilíngue).</span></li>
+    <li><span class="art">Art. 6º</span><span><b>Instrutor de Libras</b> (nível médio): cursos de educação profissional, formação continuada de IES ou de instituições credenciadas por secretarias de educação. Sociedade civil pode formar, se o certificado for convalidado.</span></li>
+    <li><span class="art">Art. 7º</span><span>Por 10 anos, sem docente titulado, podem ensinar: professor de Libras, instrutor de Libras ou professor ouvinte bilíngue, todos com <b>certificado de proficiência do MEC</b>. Surdos têm prioridade (incisos I e II).</span></li>
+    <li><span class="art">Art. 8º</span><span>Exame de proficiência <b>anual</b>, promovido pelo MEC. Avalia fluência, conhecimento e competência para ensino. Banca com <b>docentes surdos e linguistas</b>.</span></li>
+    <li><span class="art">Art. 9º</span><span>Prazos para incluir Libras nos cursos: <b>3 anos → 20%</b>, <b>5 anos → 60%</b>, <b>7 anos → 80%</b>, <b>10 anos → 100%</b>. Começa por Educação Especial, Fonoaudiologia, Pedagogia e Letras.</span></li>
+    <li><span class="art">Art. 10</span><span>IES incluem Libras como objeto de ensino, pesquisa e extensão.</span></li>
+    <li><span class="art">Art. 13</span><span>Português escrito como segunda língua para surdos vira disciplina na formação de professores e em Letras.</span></li>
+  </ul></div></details>
+
+  <details><summary>Cap. IV · Libras e Português na educação (art. 14–16)</summary><div class="body"><ul class="arts">
+    <li><span class="art">Art. 14</span><span>Instituições federais garantem acesso à comunicação, informação e educação em todos os níveis. Devem ter professor/instrutor de Libras, <b>tradutor e intérprete</b>, professor de Português como L2 e professor regente que conheça a singularidade linguística do surdo.</span></li>
+    <li><span class="art">Avaliação</span><span>Provas escritas corrigidas <b>valorizando o aspecto semântico</b>. Avaliação em Libras pode ser registrada em <b>vídeo</b>.</span></li>
+    <li><span class="art">Art. 16</span><span>Português <b>oral</b> ofertado de preferência em <b>turno distinto</b>, respeitando a opção da família ou do aluno.</span></li>
+  </ul></div></details>
+
+  <details><summary>Cap. V · Tradutor e intérprete (art. 17–21)</summary><div class="body"><ul class="arts">
+    <li><span class="art">Art. 17</span><span>Formação em <b>curso superior de Tradução e Interpretação</b> com habilitação em Libras–Língua Portuguesa.</span></li>
+    <li><span class="art">Art. 19</span><span>Perfis provisórios: ouvinte de nível <b>superior</b> (atua no médio e superior); ouvinte de nível <b>médio</b> (atua no fundamental); <b>surdo</b> que interpreta línguas de sinais de outros países para a Libras (cursos e eventos).</span></li>
+    <li><span class="art">Art. 21</span><span>Intérprete atua em processos seletivos, salas de aula e apoio à acessibilidade da instituição.</span></li>
+  </ul></div></details>
+
+  <details><summary>Cap. VI · Direito à educação (art. 22–24)</summary><div class="body"><ul class="arts">
+    <li><span class="art">Art. 22</span><span><b>Escola bilíngue</b>: Libras e Português escrito são as línguas de instrução. Infantil e anos iniciais: classes bilíngues com professores bilíngues. Anos finais, médio e profissional: escolas bilíngues ou comuns com intérpretes.</span></li>
+    <li><span class="art">Art. 24</span><span>Cursos a distância: <b>janela com intérprete</b> e <b>legenda oculta</b> (closed caption).</span></li>
+  </ul></div></details>
+
+  <details><summary>Cap. VII · Direito à saúde (art. 25)</summary><div class="body"><p>SUS e concessionárias de saúde garantem, prioritariamente a alunos da educação básica: prevenção, diagnóstico e atendimento precoce, prótese auditiva quando indicado, acompanhamento fonoaudiológico, orientação à família sobre acesso à Libras e ao Português desde o nascimento, atendimento por profissionais capacitados em Libras.</p></div></details>
+
+  <details><summary>Cap. VIII · Poder público (art. 26–27)</summary><div class="body"><ul class="arts">
+    <li><span class="art">Art. 26</span><span>No mínimo <mark>5% dos servidores</mark> com capacitação básica em Libras (redação do <b>Decreto 9.656/2018</b>). Pode usar intérpretes contratados ou central de intermediação (videoconferência e webchat).</span></li>
+    <li><span class="art">Art. 27</span><span>Órgãos federais publicam nos sites, inclusive em <b>vídeo em Libras</b>, as formas de atendimento a surdos.</span></li>
+  </ul></div></details>
+
+  <details><summary>Cap. IX · Disposições finais (art. 28–31)</summary><div class="body"><p>Órgãos públicos incluem no orçamento verba para formação, capacitação e interpretação de Libras. O decreto entra em vigor na publicação.</p></div></details>
+</section>
+</div>
+
+<!-- ============ DECORAR ============ -->
+<div id="decorar" role="tabpanel" aria-labelledby="t-decorar" hidden>
+<section>
+  <h2>Números e nomes para decorar</h2>
+  <dl class="facts">
+    <div><dt>1857</dt><dd>Imperial Instituto de Surdos-Mudos (atual INES), Rio de Janeiro</dd></div>
+    <div><dt>1880</dt><dd>Congresso de Milão → oralismo, sinais proibidos</dd></div>
+    <div><dt>1970s</dt><dd>Movimento surdo</dd></div>
+    <div><dt>1988</dt><dd>Constituição: direito à diferença e educação para todos</dd></div>
+    <div><dt>10.436</dt><dd>Lei de Libras · 24/04/2002 · FHC</dd></div>
+    <div><dt>5.626</dt><dd>Decreto que regulamenta a lei · 22/12/2005 · Lula</dd></div>
+    <div><dt>10.098</dt><dd>Lei de 2000; o decreto também regulamenta o art. 18 dela</dd></div>
+    <div><dt>9.656</dt><dd>Decreto de 2018 que alterou os arts. 26 e 27</dd></div>
+    <div><dt>41 dB</dt><dd>Perda mínima (bilateral, parcial ou total) para deficiência auditiva</dd></div>
+    <div><dt>500–3.000 Hz</dt><dd>Frequências do audiograma: 500, 1.000, 2.000 e 3.000</dd></div>
+    <div><dt>5%</dt><dd>Mínimo de servidores com capacitação básica em Libras</dd></div>
+    <div><dt>20/60/80/100%</dt><dd>Cursos com Libras em 3 / 5 / 7 / 10 anos</dd></div>
+    <div><dt>1 ano</dt><dd>Prazo para Libras virar optativa nos demais cursos, para incluir intérpretes e professores de Libras nos quadros</dd></div>
+    <div><dt>10 anos</dt><dd>Período de transição para formação/atuação de professores e intérpretes sem titulação</dd></div>
+    <div><dt>Visual-motora</dt><dd>Natureza da Libras segundo a lei</dd></div>
+    <div><dt>Gestual-visual</dt><dd>Modalidade da Libras (Português: oral-auditiva)</dd></div>
+  </dl>
+</section>
+<section>
+  <h2>Pegadinhas comuns</h2>
+  <ul class="arts">
+    <li><span class="art">!</span><span>Libras <b>não substitui</b> o Português escrito (Lei, art. 4º, parágrafo único).</span></li>
+    <li><span class="art">!</span><span>Libras é <b>obrigatória</b> só em licenciaturas, Pedagogia, normal, Ed. Especial e <b>Fonoaudiologia</b>. Nos outros cursos é <b>optativa</b>.</span></li>
+    <li><span class="art">!</span><span>A Constituição de 1988 <b>não</b> reconheceu a Libras; ela abriu caminho. O reconhecimento veio em 2002.</span></li>
+    <li><span class="art">!</span><span>Línguas de sinais <b>não</b> são universais nem mímica.</span></li>
+    <li><span class="art">!</span><span>Intérprete é formado em curso de <b>Tradução e Interpretação</b>; professor de Libras, em <b>Letras: Libras</b>.</span></li>
+    <li><span class="art">!</span><span>Lei 10.436 cita Educação Especial, Fonoaudiologia e Magistério; o Decreto começa a inclusão por Educação Especial, Fonoaudiologia, <b>Pedagogia e Letras</b>.</span></li>
+  </ul>
+</section>
+</div>
+
+<!-- ============ QUIZ ============ -->
+<div id="quiz" role="tabpanel" aria-labelledby="t-quiz" hidden>
+  <section><div id="qroot"></div></section>
+</div>
+</div>
+
+<script>
+const Q = [
+ ["Em que ano e onde foi fundado o Imperial Instituto de Surdos-Mudos, atual INES?", ["1857, no Rio de Janeiro","1880, em Milão","1857, em São Paulo","1888, no Rio de Janeiro"], "O INES nasceu em 1857 no Rio de Janeiro, com professores surdos e ouvintes que usavam sinais."],
+ ["Qual evento levou à imposição do método oralista e à proibição dos sinais nas escolas?", ["O Congresso de Milão, em 1880","A Constituição de 1988","A fundação do INES","O Decreto 5.626"], "O Congresso de Milão (1880) influenciou a adoção do oralismo no Brasil."],
+ ["Segundo o material, qual foi o papel da Constituição Federal de 1988?", ["Reconheceu o direito à diferença e à educação para todos, abrindo caminho para o reconhecimento da Libras","Reconheceu a Libras como língua oficial do Brasil","Criou o INES","Tornou Libras obrigatória em todos os cursos"], "A CF/88 abriu caminho. O reconhecimento legal da Libras só veio em 2002."],
+ ["Qual norma reconhece a Libras como meio legal de comunicação e expressão?", ["Lei nº 10.436/2002","Decreto nº 5.626/2005","Lei nº 10.098/2000","Decreto nº 9.656/2018"], "Lei 10.436, de 24 de abril de 2002, art. 1º."],
+ ["Pela Lei 10.436, a Libras é um sistema linguístico de natureza:", ["Visual-motora, com estrutura gramatical própria","Oral-auditiva, derivada do Português","Mímica, sem gramática própria","Escrita, complementar ao Português"], "Parágrafo único do art. 1º: natureza visual-motora e estrutura gramatical própria."],
+ ["A Libras pode substituir a modalidade escrita da Língua Portuguesa?", ["Não, a Lei 10.436 proíbe expressamente","Sim, para alunos surdos","Sim, em escolas bilíngues","Só no ensino superior"], "Art. 4º, parágrafo único: a Libras não poderá substituir a modalidade escrita do Português."],
+ ["O Decreto 5.626/2005 regulamenta:", ["A Lei 10.436/2002 e o art. 18 da Lei 10.098/2000","Apenas a Constituição de 1988","A Lei 9.656/2018","O Congresso de Milão"], "Art. 1º do Decreto."],
+ ["Para o Decreto 5.626, deficiência auditiva é a perda bilateral, parcial ou total, de:", ["41 dB ou mais, nas frequências de 500, 1.000, 2.000 e 3.000 Hz","30 dB ou mais, em qualquer frequência","41 dB ou mais, apenas em 1.000 Hz","60 dB ou mais, em um ouvido"], "Art. 2º, parágrafo único."],
+ ["Como o Decreto define pessoa surda?", ["Quem, por perda auditiva, compreende e interage com o mundo por experiências visuais, manifestando sua cultura principalmente pela Libras","Quem tem perda auditiva de qualquer grau","Quem usa aparelho auditivo","Quem não fala Português"], "Art. 2º, caput."],
+ ["Em quais cursos a Libras é disciplina obrigatória?", ["Formação de professores (licenciaturas, Pedagogia, normal, Ed. Especial) e Fonoaudiologia","Todos os cursos superiores","Apenas Letras: Libras","Cursos de tecnologia e licenciaturas"], "Art. 3º e § 1º."],
+ ["No curso de Sistemas para Internet, a disciplina de Libras é:", ["Optativa","Obrigatória","Proibida","Obrigatória só no último período"], "Art. 3º, § 2º: optativa nos demais cursos superiores e na educação profissional."],
+ ["Qual a formação exigida para docente de Libras nos anos finais do fundamental, no médio e no superior?", ["Licenciatura plena em Letras: Libras ou Letras: Libras/Língua Portuguesa como segunda língua","Curso de Tradução e Interpretação","Curso de Fonoaudiologia","Qualquer pós-graduação"], "Art. 4º. Pessoas surdas têm prioridade nesses cursos."],
+ ["Pelo art. 9º, em quanto tempo 60% dos cursos deveriam incluir Libras?", ["Até 5 anos","Até 3 anos","Até 7 anos","Até 10 anos"], "3 anos: 20% · 5 anos: 60% · 7 anos: 80% · 10 anos: 100%."],
+ ["Por quais cursos deve começar a inclusão da Libras como disciplina?", ["Educação Especial, Fonoaudiologia, Pedagogia e Letras","Medicina, Direito e Engenharia","Todos os cursos ao mesmo tempo","Cursos de tecnologia"], "Art. 9º, parágrafo único."],
+ ["Quem promove o exame de proficiência em Libras e com que frequência?", ["O Ministério da Educação, anualmente","As secretarias municipais, a cada 5 anos","O INES, semestralmente","Associações de surdos, sem prazo"], "Art. 8º. A banca tem docentes surdos e linguistas."],
+ ["A formação do tradutor e intérprete de Libras–Língua Portuguesa deve ocorrer em:", ["Curso superior de Tradução e Interpretação com habilitação em Libras–Língua Portuguesa","Licenciatura em Pedagogia","Curso de Fonoaudiologia","Qualquer curso técnico"], "Art. 17."],
+ ["No art. 19, qual é a função do profissional surdo listado?", ["Interpretar línguas de sinais de outros países para a Libras, em cursos e eventos","Ensinar Português oral","Interpretar no ensino fundamental","Corrigir provas escritas"], "Art. 19, inciso III."],
+ ["O que caracteriza uma escola ou classe de educação bilíngue?", ["Libras e a modalidade escrita do Português são línguas de instrução","Ensino em Português e Inglês","Apenas Libras, sem Português","Português oral e escrito"], "Art. 22, § 1º."],
+ ["Ao corrigir provas escritas de alunos surdos, as instituições federais devem valorizar:", ["O aspecto semântico","Apenas a ortografia","A caligrafia","O número de palavras"], "Art. 14, § 1º, VI: reconhece a singularidade linguística no aspecto formal do Português."],
+ ["Como deve ser ofertado o Português oral aos alunos surdos?", ["De preferência em turno distinto, respeitando a opção da família ou do aluno","Obrigatoriamente, no mesmo turno das aulas","Nunca pode ser ofertado","Apenas no ensino superior"], "Art. 16."],
+ ["Qual o percentual mínimo de servidores com capacitação básica em Libras nos órgãos federais?", ["5%","10%","20%","1%"], "Art. 26, § 1º, com redação do Decreto 9.656/2018."],
+ ["Nos cursos a distância, o art. 24 prevê:", ["Janela com tradutor e intérprete e legenda oculta","Apenas legendas em inglês","Áudio descrição","Material só impresso"], "Art. 24, conforme o Decreto 5.296/2004."],
+ ["Qual é a modalidade da Libras e seu órgão receptor?", ["Gestual-visual; visão","Oral-auditiva; audição","Gestual-visual; audição","Oral-visual; visão"], "Canal: movimentos gestuais e expressões faciais."],
+ ["O que é FALSO sobre as línguas de sinais?", ["São universais, iguais no mundo inteiro","Cada país tem a sua","Têm gramática própria","Têm milhares de sinais"], "Mito. Há alguma semelhança gramatical, mas o vocabulário muda muito entre países."],
+ ["Por que a Libras não é mímica?", ["Tem estrutura gramatical própria, sintaxe independente e regras linguísticas complexas","Porque usa só as mãos","Porque é baseada no Português","Porque tem poucos sinais"], "É uma língua completa e autônoma."],
+ ["Sinais em Libras são:", ["Símbolos para significados, como as palavras","Desenhos no ar que imitam o objeto","Letras do alfabeto soletradas","Gestos universais"], "Mito: 'desenhos no ar'. Fato: são símbolos, e é preciso conhecer a língua e o contexto."],
+ ["Como a Libras amplia seu vocabulário?", ["A comunidade surda cria e adota sinais novos conforme surgem necessidades culturais e tecnológicas","Copiando palavras do Português letra por letra","Por decreto do governo","Não amplia; é fixa"], "Pontos-chave: dinâmica natural, criação de sinais, aceitação comunitária."],
+ ["Quem tem prioridade nos cursos de formação de professores e instrutores de Libras?", ["Pessoas surdas","Pessoas ouvintes","Fonoaudiólogos","Servidores públicos"], "Arts. 4º, 5º e 6º."]
+];
+
+const root = document.getElementById("qroot");
+let order = [], i = 0, hits = 0, misses = [];
+
+function shuffle(a){a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]];}return a;}
+function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+
+function start(indices){order = shuffle(indices); i = 0; hits = 0; misses = []; render();}
+
+function render(){
+  if(i >= order.length) return finish();
+  const [q, opts, exp] = Q[order[i]];
+  const correct = opts[0];
+  const shown = shuffle(opts);
+  root.innerHTML = `<div class="qcard">
+    <div class="qmeta"><span>Questão ${i+1} de ${order.length}</span><span>${hits} acerto${hits===1?"":"s"}</span></div>
+    <div class="bar"><i style="width:${(i/order.length)*100}%"></i></div>
+    <p class="qtext">${esc(q)}</p>
+    <div class="opts">${shown.map((o,k)=>`<button class="opt" id="opt${k}" data-v="${esc(o)}">${esc(o)}</button>`).join("")}</div>
+    <div id="fb"></div></div>`;
+  root.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>{
+    const ok = b.dataset.v === correct;
+    if(ok) hits++; else misses.push(order[i]);
+    root.querySelectorAll(".opt").forEach(x=>{x.disabled=true; if(x.dataset.v===correct) x.classList.add("right");});
+    if(!ok) b.classList.add("wrong");
+    document.getElementById("fb").innerHTML = `<p class="exp ${ok?"":"miss"}"><b>${ok?"Certo.":"Errado."}</b> ${esc(exp)}</p>
+      <div class="actions" style="margin-top:.8rem"><button class="btn" id="next">${i+1<order.length?"Próxima":"Ver resultado"}</button></div>`;
+    const n = document.getElementById("next"); n.focus();
+    n.addEventListener("click",()=>{i++; render(); root.scrollIntoView({block:"start"});});
+  }));
+}
+
+function finish(){
+  const pct = Math.round(hits/order.length*100);
+  root.innerHTML = `<div class="qcard">
+    <span class="eyebrow">Resultado</span>
+    <div><span class="score">${hits}/${order.length}</span> <span class="note">· ${pct}%</span></div>
+    <p>${pct>=80?"Ótimo, você está pronto. Revise só o que errou.":pct>=60?"Bom caminho. Releia os capítulos das questões erradas e refaça.":"Volte na aba Conteúdo e na aba Decorar, depois tente de novo."}</p>
+    ${misses.length?`<h3>Para revisar</h3><ul class="review">${misses.map(m=>`<li><b>${esc(Q[m][0])}</b>${esc(Q[m][1][0])}</li>`).join("")}</ul>`:""}
+    <div class="actions">
+      ${misses.length?`<button class="btn" id="redo-miss">Refazer só as erradas</button>`:""}
+      <button class="btn ghost" id="redo-all">Refazer todas</button>
+    </div></div>`;
+  const rm = document.getElementById("redo-miss"); const keep = misses.slice();
+  if(rm) rm.addEventListener("click",()=>start(keep));
+  document.getElementById("redo-all").addEventListener("click",()=>start(Q.map((_,k)=>k)));
+}
+
+start(Q.map((_,k)=>k));
+
+// tabs
+const tabs = [...document.querySelectorAll(".tab")];
+function show(id){
+  tabs.forEach(t=>{const on = t.getAttribute("aria-controls")===id; t.setAttribute("aria-selected",on); document.getElementById(t.getAttribute("aria-controls")).hidden = !on;});
+}
+tabs.forEach(t=>t.addEventListener("click",()=>{show(t.getAttribute("aria-controls")); window.scrollTo({top:0});}));
+const h = location.hash.slice(1); if(["conteudo","decorar","quiz"].includes(h)) show(h);
+</script>
+</body>
+</html>
